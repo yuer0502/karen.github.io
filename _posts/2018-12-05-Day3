@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "HT G3 Day3"
+date:   2018-12-05 23:03:46 +0700
+categories: Project
+tags: 'HT Project'
+author: Bo Yang
+---
+Today I installed the packages seqmagick,kallisto and cutadapt on the computer and tried to cut adapters of reversed sequences.
+
+## What I have done today:
+### Successfully installed the packages and reverse the sequences:
+eg.
+'''
+seqmagick convert NT0-1_red_rev.fastq.gz NT0-1_red_rev.fasta.gz
+'''
+### Cut adapters:
+The information for the adapter:
+> NEBNext libraries: cutadapt -a AGATCGGAAGAGCACACGTCT  (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2864620)
+eg.
+'''
+cutadapt -a AGATCGGAAGAGCACACGTCT -o NT0-1_red_cut.fastq.gz NT0-1_red_rev.fastq.gz
+'''
+### Use kallisto:
+1. index
+eg.
+'''
+kallisto index -i NT0-1_red.idx NT0-1_red.fasta.gz 
+'''
+2. quant
+eg.
+'''
+kallisto quant -i NT0-1_red.idx -o output -b 100 --single -l 75 -s 1 ref.fa.gz
+'''
+## Problems:
+- We know that Kallisto might skip the adapters because of the small length (<31 bps), which is the defult length of k-mers. Hence, the work here can be seen as confirmation for this problem.  
+- I have not finished the whole steps in Kallisto and prepare to discuss with partners tomorrow.
+- Stucked in the installation problem for a while.
+
+## Solution:
+- Need more experience in the packages installation such as setting the pathway.
+
